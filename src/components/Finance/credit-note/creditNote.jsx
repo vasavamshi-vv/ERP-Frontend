@@ -129,7 +129,7 @@ export default function CreditNote({ setCurrentPage }) {
           />
         </div>
         <div className="creditNote-clearfilter">
-          <p onClick={handleClearFilter}>Clear Filter</p>
+          <p onClick={handleClearFilter}>Clear Filters</p>
         </div>
         <div className="creditNote-search-category">
           <div className="creditNote-input-box">
