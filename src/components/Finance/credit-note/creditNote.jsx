@@ -169,7 +169,7 @@ export default function CreditNote({ setCurrentPage }) {
             </select>
           </div>
           <div className="creditNote-input-box">
-            <label htmlFor="creditNote_date">creditNote Date</label>
+            <label htmlFor="creditNote_date">Credit Note Date</label>
             <nav id="creditNote_date">
               <div>
                 <span>From </span>
