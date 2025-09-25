@@ -111,7 +111,7 @@ export default function CreditNote({ setCurrentPage }) {
     <>
       <div className="creditNote-container">
         <div className="creditNote-header">
-          <p>Credit Note List</p>
+          <p>Credit Notes List</p>
         </div>
         <div className="creditNote-search-box">
           <label htmlFor="searchByID">
