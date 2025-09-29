@@ -111,7 +111,7 @@ export default function CreditNote({ setCurrentPage }) {
     <>
       <div className="creditNote-container">
         <div className="creditNote-header">
-          <p>Credit Notes List</p>
+          <p>Credit Note List</p>
         </div>
         <div className="creditNote-search-box">
           <label htmlFor="searchByID">
@@ -125,7 +125,7 @@ export default function CreditNote({ setCurrentPage }) {
           </label>
           <input
             id="searchByID"
-            placeholder="Search by creditNote ID, Customer name...."
+            placeholder="Search by Credit Note ID, Customer name,Invoice Reference ID"
           />
         </div>
         <div className="creditNote-clearfilter">
@@ -151,7 +151,7 @@ export default function CreditNote({ setCurrentPage }) {
             </select>
           </div>
           <div className="creditNote-input-box">
-            <label htmlFor="payment_status">Payment Status</label>
+            <label htmlFor="payment_status">Customer Name</label>
             <select
               id="payment_status"
               value={filter.payment_status}
@@ -162,10 +162,10 @@ export default function CreditNote({ setCurrentPage }) {
                 }));
               }}
             >
-              <option value="">All Types</option>
-              <option value="Paid">Paid</option>
-              <option value="Partial">Partial</option>
-              <option value="Unpaid">Unpaid</option>
+              <option value="">All</option>
+              <option value="Paid">Acme Corp</option>
+              <option value="Partial">Freelance writer</option>
+              <option value="Unpaid">Green Intitatives</option>
             </select>
           </div>
           <div className="creditNote-input-box">
@@ -212,16 +212,13 @@ export default function CreditNote({ setCurrentPage }) {
                   <pre>CRN ID</pre>
                 </th>
                 <th>
-                  <pre>Sales Order Ref.</pre>
+                  <pre>Invoice Ref ID</pre>
                 </th>
                 <th>
                   <pre>Customer Name</pre>
                 </th>
                 <th>
                   <pre>Credit Note Date</pre>
-                </th>
-                <th>
-                  <pre>Payment Status</pre>
                 </th>
                 <th>
                   <div className="creditNote-status-filter">
@@ -267,9 +264,6 @@ export default function CreditNote({ setCurrentPage }) {
                     <td>{ele.customer_name}</td>
                     <td>
                       <pre>{ele.creditNote_date}</pre>
-                    </td>
-                    <td>
-                      <pre>{ele.due_date}</pre>
                     </td>
                     <td>
                       <p

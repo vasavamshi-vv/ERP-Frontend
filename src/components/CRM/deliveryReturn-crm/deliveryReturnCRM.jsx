@@ -167,7 +167,7 @@ export default function DeliveryReturnCRM({ setCurrentPage }) {
     <>
       <div className="deliveryCRM-container">
         <div className="deliveryCRM-header">
-          <p>Delivery Note Return</p>
+          <p>Delivery Note Return List</p>
           <button
             onClick={() => {
               setCurrentPage("createNewDeliveryReturn");
@@ -188,7 +188,7 @@ export default function DeliveryReturnCRM({ setCurrentPage }) {
           </label>
           <input
             id="searchByID"
-            placeholder="Search by DN number, Customer name...."
+            placeholder="Search by DNR number, Customer name,Customer ID..."
           />
         </div>
         <div className="deliveryCRM-clearfilter">
@@ -196,7 +196,7 @@ export default function DeliveryReturnCRM({ setCurrentPage }) {
         </div>
         <div className="deliveryCRM-search-category">
           <div className="deliveryCRM-input-box">
-            <label htmlFor="delivery_status">Delivery Status</label>
+            <label htmlFor="delivery_status">DNR Status</label>
             <select
               value={filter.delivery_status}
               onChange={(e) => {
@@ -274,7 +274,7 @@ export default function DeliveryReturnCRM({ setCurrentPage }) {
             <thead className="deliveryCRM-table-head">
               <tr>
                 <th></th>
-                <th>DRN ID</th>
+                <th>DNR ID</th>
                 <th className="deliveryCRM-maxhead-width">Invoice Return Ref.</th>
                 <th className="deliveryCRM-maxhead-width">Customer Name</th>
                 <th className="deliveryCRM-minhead-width">DNR Date</th>

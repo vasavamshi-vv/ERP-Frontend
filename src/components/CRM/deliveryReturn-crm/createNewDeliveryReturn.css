@@ -99,6 +99,12 @@
   gap: 3px;
 }
 
+.contact-person-halfwidth {
+  width: 50%;
+  flex: none;
+}
+
+
 .createNewDeliveryReturn-input-box > label {
   font-size: 14px;
   font-weight: 500;

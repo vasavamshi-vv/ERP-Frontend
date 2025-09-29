@@ -385,20 +385,20 @@ export default function CreditNoteDetails() {
           </div>
         </div>
         <div className="createNewInvoice-input-container">
-        <div className="createNewInvoice-input-box">
-         <label htmlFor="invoice_id">Credit Note ID {`(Auto Generate)`}</label>
-            <input
-                id="invoice_id"
-                type="text"
-                placeholder="Auto Generate"
-                value={creditNoteInput.creditNote_id}
-                onChange={handlecreditNoteInputChanges}
-                disabled
-              />
+            <div className="createNewInvoice-input-box">
+            <label htmlFor="creditNote_id">Credit Note ID {`(Auto Generate)`}</label>
+                <input
+                    id="creditNote_id"
+                    type="text"
+                    placeholder="Auto Generate"
+                    value={creditNoteInput.creditNote_id}
+                    onChange={handlecreditNoteInputChanges}
+                    disabled
+                  />
             </div>
             <div className="createNewInvoice-input-box">
               <label htmlFor="creditNote_date">
-                Invoice Date<sup>*</sup>
+                Credit Note Date<sup>*</sup>
               </label>
               <input
                 id="creditNote_date"
@@ -410,7 +410,7 @@ export default function CreditNoteDetails() {
                 disabled={InvoiceBtn.buttonAcs}
               />
             </div>
-          </div>
+        </div>
           <div className="createNewInvoice-input-container">
             <div className="createNewInvoice-input-box">
            <label htmlFor="invoice_id">Invoice Reference ID {`(Auto Generate)`}</label>
@@ -480,7 +480,7 @@ export default function CreditNoteDetails() {
               </select>
             </div>
           </div>
-          <nav className="createNewInvoice-subtit">Customer Information</nav>
+          <nav className="createNewInvoice-subtit">Customer & Invoice Details</nav>
           <div className="createNewInvoice-input-container">
             <div className="createNewInvoice-input-box">
               <label htmlFor="custoner_name">
@@ -546,6 +546,36 @@ export default function CreditNoteDetails() {
             </div>
           </div>
           <div className="createNewInvoice-input-container">
+            <div className="createNewInvoice-input-box">
+              <label htmlFor="invoice_date">
+                Invoice Date<sup>*</sup>
+              </label>
+              <input
+                id="invoice_date"
+                type="date"
+                placeholder="Select Date"
+                value={creditNoteInput.invoice_date}
+                onChange={handlecreditNoteInputChanges}
+                required
+                disabled={InvoiceBtn.buttonAcs}
+              />
+            </div>
+            <div className="createNewInvoice-input-box">
+              <label htmlFor="due_date">
+                Due Date<sup>*</sup>
+              </label>
+              <input
+                id="due_date"
+                type="date"
+                placeholder="Select Date"
+                value={creditNoteInput.due_date}
+                onChange={handlecreditNoteInputChanges}
+                required
+                disabled={InvoiceBtn.buttonAcs}
+              />
+            </div>
+        </div>
+          <div className="createNewInvoice-input-container">
              <div className="createNewInvoice-input-box">
               <label htmlFor="payment_terms">
                 Payment Terms<sup>*</sup>
@@ -610,7 +640,7 @@ export default function CreditNoteDetails() {
               />
             </div>
           </div>
-          <nav className="createNewInvoice-subtit">Line Items</nav>
+          <nav className="createNewInvoice-subtit">Returned Line Items</nav>
           <div className="createNewInvoice-table-container">
             <table>
               <thead className="createNewInvoice-table-head">
@@ -788,7 +818,7 @@ export default function CreditNoteDetails() {
               onClick={handleCancelledState}
               disabled={InvoiceBtn.cancel_invoice}
             >
-              {creditNoteStatus === "Cancelled" ? "Cancelled" : "Cancel Credit Note"}
+              {creditNoteStatus === "Cancelled" ? "Deleted" : "Delete Credit Note"}
             </button>
             <nav>
               <button

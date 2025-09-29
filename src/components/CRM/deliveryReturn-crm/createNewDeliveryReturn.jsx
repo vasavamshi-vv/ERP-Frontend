@@ -451,7 +451,7 @@ export default function createNewDeliveryReturnReturn() {
           <div className="createNewDeliveryReturn-input-container">
             <div className="createNewDeliveryReturn-input-box">
               <label htmlFor="sales_order_ref">
-                Sales Order Reference<sup>*</sup>
+                Invoice Return Reference ID<sup>*</sup>
               </label>
               <select
                 id="sales_order_ref"
@@ -545,8 +545,7 @@ export default function createNewDeliveryReturnReturn() {
               />
             </div>
           </div>
-          <div className="createNewDeliveryReturn-input-container">
-            <div className="createNewDeliveryReturn-input-box">
+          <div className="createNewDeliveryReturn-input-box contact-person-halfwidth">
               <label htmlFor="contact_person">Contact Person</label>
               <input
                 id="contact_person"
@@ -556,7 +555,6 @@ export default function createNewDeliveryReturnReturn() {
                 onChange={handleInvoiceInputChanges}
                 disabled={InvoiceBtn.buttonAcs}
               />
-            </div>
           </div>
           <nav className="createNewDeliveryReturn-subtit">Line Items</nav>
           <div className="createNewDeliveryReturn-table-container">
@@ -671,7 +669,7 @@ export default function createNewDeliveryReturnReturn() {
               onClick={handleCancelledState}
               disabled={InvoiceBtn.cancel_invoice}
             >
-              {invoiceStatus === "Cancelled" ? "Cancelled" : "Cancel DRN"}
+              {invoiceStatus === "Cancelled" ? "Cancelled" : "Cancel DNR"}
             </button>
             <nav>
               <button
