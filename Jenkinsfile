@@ -55,7 +55,7 @@ pipeline {
                 echo 'Deploying to AWS EC2...'
                 sh '''
                 # Copy frontend build output to EC2 web directory
-                scp -i $PEM_KEY -r frontend/build/* $EC2_USER@$EC2_HOST:/var/www/html/
+                sh 'scp -i /var/lib/jenkins/.ssh/Erp-Jenkins-key.pem -r frontend/dist/* ubuntu@16.176.229.100:/var/www/html/'/
 
                 # Deploy backend and restart server
                 ssh -i $PEM_KEY $EC2_USER@$EC2_HOST "
