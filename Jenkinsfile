@@ -30,13 +30,14 @@ pipeline {
 
         stage('Build Frontend') {
             steps {
-                dir('frontend') {
-                    echo '🏗️ Installing and building frontend...'
-                    sh '''
-                        npm install
-                        npm run build
-                    '''
-                }
+                echo '🏗️ Installing and building frontend...'
+                sh '''
+                    mkdir -p frontend
+                    cp -r * frontend/ || true
+                    cd frontend
+                    npm install
+                    npm run build
+                '''
             }
         }
 
@@ -44,7 +45,6 @@ pipeline {
             steps {
                 dir('backend') {
                     echo '⚙️ Setting up backend...'
-                    // If requirements.txt exists, install dependencies
                     sh '''
                         if [ -f requirements.txt ]; then
                             echo "Installing Python dependencies..."
@@ -61,8 +61,13 @@ pipeline {
             steps {
                 echo '🚀 Deploying to AWS EC2...'
                 sh '''
-                    ssh -o StrictHostKeyChecking=no -i ${PEM_KEY} ${EC2_USER}@${EC2_HOST} "sudo rm -rf ${DEPLOY_PATH}*"
+                    echo "Removing old files on EC2..."
+                    ssh -o StrictHostKeyChecking=no -i ${PEM_KEY} ${EC2_USER}@${EC2_HOST} "sudo rm -rf ${DEPLOY_PATH}* || true"
+
+                    echo "Copying new build files..."
                     scp -o StrictHostKeyChecking=no -i ${PEM_KEY} -r frontend/dist/* ${EC2_USER}@${EC2_HOST}:${DEPLOY_PATH}
+
+                    echo "✅ Deployment Complete!"
                 '''
             }
         }
