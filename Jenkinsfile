@@ -2,27 +2,28 @@ pipeline {
     agent any
 
     environment {
-        AWS_DEFAULT_REGION = 'ap-south-1'
-        AWS_CREDENTIALS = credentials('aws-creds')
-        GITHUB_TOKEN = credentials('github-token')
-        EC2_USER = 'ubuntu'
-        EC2_HOST = '16.176.229.100'  // change this
-        PEM_KEY = '/var/lib/jenkins/.ssh/Erp-Jenkins-key.pem'  // your EC2 key
+        FRONTEND_REPO = 'https://github.com/vasavamshi-vv/ERP-Frontend.git'
+        BACKEND_REPO  = 'https://github.com/vasavamshi-vv/ERP-Backend.git'
+        EC2_HOST      = '16.176.229.100'
+        EC2_USER      = 'ubuntu'
+        PEM_KEY       = '/var/lib/jenkins/.ssh/Erp-Jenkins-key.pem'
+        DEPLOY_PATH   = '/var/www/html/'
     }
 
     stages {
+
         stage('Checkout Frontend') {
             steps {
-                echo 'Cloning Frontend Repo...'
-               git branch: 'main', url: 'https://github.com/vasavamshi-vv/ERP-Frontend.git', credentialsId: 'github-token'
+                echo '📥 Cloning Frontend Repo...'
+                git branch: 'main', url: "${FRONTEND_REPO}", credentialsId: 'github-token'
             }
         }
 
         stage('Checkout Backend') {
             steps {
-                echo 'Cloning Backend Repo...'
+                echo '📥 Cloning Backend Repo...'
                 dir('backend') {
-                    git branch: 'main', url: 'https://github.com/vasavamshi-vv/ERP-Backend.git', credentialsId: 'github-token'
+                    git branch: 'main', url: "${BACKEND_REPO}", credentialsId: 'github-token'
                 }
             }
         }
@@ -30,10 +31,10 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 dir('frontend') {
+                    echo '🏗️ Installing and building frontend...'
                     sh '''
-                    echo "Installing and building frontend..."
-                    npm install
-                    npm run build
+                        npm install
+                        npm run build
                     '''
                 }
             }
@@ -42,9 +43,15 @@ pipeline {
         stage('Build Backend') {
             steps {
                 dir('backend') {
+                    echo '⚙️ Setting up backend...'
+                    // If requirements.txt exists, install dependencies
                     sh '''
-                    echo "Setting up backend..."
-                    pip install -r requirements.txt || npm install
+                        if [ -f requirements.txt ]; then
+                            echo "Installing Python dependencies..."
+                            pip install -r requirements.txt || true
+                        else
+                            echo "No requirements.txt found. Skipping..."
+                        fi
                     '''
                 }
             }
@@ -52,17 +59,10 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                echo 'Deploying to AWS EC2...'
+                echo '🚀 Deploying to AWS EC2...'
                 sh '''
-                # Copy frontend build output to EC2 web directory
-                sh 'scp -i /var/lib/jenkins/.ssh/Erp-Jenkins-key.pem -r frontend/dist/* ubuntu@16.176.229.100:/var/www/html/'/
-
-                # Deploy backend and restart server
-                ssh -i $PEM_KEY $EC2_USER@$EC2_HOST "
-                    cd /home/ubuntu/backend || mkdir backend && cd backend
-                    git clone https://github.com/vasavamshi-vv/ERP-Backend.git || (cd erp-backend && git pull)
-                    nohup python3 manage.py runserver 0.0.0.0:8000 &
-                "
+                    ssh -o StrictHostKeyChecking=no -i ${PEM_KEY} ${EC2_USER}@${EC2_HOST} "sudo rm -rf ${DEPLOY_PATH}*"
+                    scp -o StrictHostKeyChecking=no -i ${PEM_KEY} -r frontend/dist/* ${EC2_USER}@${EC2_HOST}:${DEPLOY_PATH}
                 '''
             }
         }
