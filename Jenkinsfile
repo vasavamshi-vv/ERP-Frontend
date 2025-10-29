@@ -14,7 +14,7 @@ pipeline {
         stage('Checkout Frontend') {
             steps {
                 echo 'Cloning Frontend Repo...'
-                git branch: 'main', url: 'https://github.com/vasavamshi-vv/ERP-Frontend.git', credentialsId: 'github-token'
+               git branch: 'main', url: 'https://github.com/vasavamshi-vv/ERP-Frontend.git', credentialsId: 'github-token'
             }
         }
 
