@@ -4,7 +4,7 @@ pipeline {
     environment {
         FRONTEND_REPO = 'https://github.com/vasavamshi-vv/ERP-Frontend.git'
         BACKEND_REPO  = 'https://github.com/vasavamshi-vv/ERP-Backend.git'
-        EC2_HOST      = '16.176.229.100'
+        EC2_HOST      = '13.239.191.236'
         EC2_USER      = 'ubuntu'
         PEM_KEY       = '/var/lib/jenkins/.ssh/Erp-Jenkins-key.pem'
         DEPLOY_PATH   = '/var/www/html/'
